@@ -610,12 +610,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.9
+  m_fontSize: 32
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 32
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -1027,7 +1027,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 8720
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -2114,8 +2114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a943b8156e73c0d428aebb4e130c2577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boatFileName: BoatSpawning.csv
   spawnAcnchor: {fileID: 568462587}
-  boatSpawnScript: {fileID: 4900000, guid: dfe46d4649d25cb4dbbbb6b00e9a9f9c, type: 3}
   boatPrefabs:
   - {fileID: 681837021802349644, guid: dfa5a979676120947ba13102e78b67c0, type: 3}
   - {fileID: 681837021802349644, guid: dfa5a979676120947ba13102e78b67c0, type: 3}
@@ -2585,6 +2585,7 @@ GameObject:
   - component: {fileID: 1952220038}
   - component: {fileID: 1952220037}
   - component: {fileID: 1952220036}
+  - component: {fileID: 1952220040}
   m_Layer: 5
   m_Name: Gameplay UI
   m_TagString: Untagged
@@ -2680,6 +2681,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1952220040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952220035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e95e3f67f47fbf4ab3601f90c3a2b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charCountLimit: 150
+  dialoguFileName: Dialogue.tsv
+  typewriter: {fileID: 237787039}
+  displayText: {fileID: 237787037}
+  DisplayingText: 0
 --- !u!1 &1983175270
 GameObject:
   m_ObjectHideFlags: 0

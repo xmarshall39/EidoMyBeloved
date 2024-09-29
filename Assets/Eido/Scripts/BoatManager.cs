@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.IO;
 
 public enum BoatColor
 {
@@ -43,8 +44,8 @@ public class BoatManager : MonoBehaviour
     }
     #endregion
 
+    public string boatFileName;
     public Transform spawnAcnchor;
-    public TextAsset boatSpawnScript;
     public GameObject[] boatPrefabs;
     public Transform[] boatStartPoints;
 
@@ -56,7 +57,7 @@ public class BoatManager : MonoBehaviour
     /// </summary>
     public void ReadBoatSequence()
     {
-        string[] lines = boatSpawnScript.ToString().Split("\n");
+        string[] lines = File.ReadAllLines(Path.Combine(Application.streamingAssetsPath, boatFileName));
         int i = 0;
         foreach(var line in lines)
         {

@@ -1,0 +1,6 @@
+Starting Timestamp	Text	Code	Ghost Emote	Trigger Text Entry	Desired Input	Text Entry Prompt	Correct Answer Response	Correct Emote	Wrong Answer Response	Wrong Emote
+2	Hi this is some sample text!	0-0	Wave	0						
+6	“All new souls must first complete the task of guiding the boats safely down the river. It can be quite confusing to maneuver at first, but that’s why we’re here to help!”	0-1	Wave	0						
+12	“Your task is simple, guide the boats down the river by...	0-2	Happy	0						
+13	NO TIME FOR A TUTORIAL, QUICK ANSWER THIS INPUT FIELD:	0-3	Goofy	1	Hades	Can you guess what word I'm thinking of right now?	I'm so relieved you didn't dissapoint me!! Please continue living up to my expectations.	Happy	FUCK YOU FUCK YOU FUCK YOU FUCK YOU FUCK YOU FUCK YOU FUCK YOU F--	Baffled
+14	Okay, I'm feeling calm now..	1-0	Goofy	0						
