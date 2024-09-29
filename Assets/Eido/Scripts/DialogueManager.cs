@@ -75,6 +75,7 @@ public class DialogueManager : MonoBehaviour
     
     void Start()
     {
+        displayText.text = string.Empty;
         string[] dialogue = File.ReadAllLines(Path.Combine(Application.streamingAssetsPath, dialoguFileName));
 
         int i = 0;
