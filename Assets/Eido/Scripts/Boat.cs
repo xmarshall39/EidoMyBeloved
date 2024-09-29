@@ -7,6 +7,8 @@ public class Boat : MonoBehaviour
     private Vector3 lastMoveDir = Vector3.left;
 
     private float rotationProgress = 0;
+    private float lastY = 0;
+    private float nextY = 0;
 
     public MeshRenderer[] shapeIcons;
     
@@ -39,10 +41,14 @@ public class Boat : MonoBehaviour
         color = (BoatColor)entry.BoatColor;
     }
 
-    public void SetMovementDirection(Vector3 mov)
+    public void SetMovementDirection(Vector3 dir)
     {
         lastMoveDir = new Vector3(transform.localEulerAngles.x, 0, 0);
-        moveDir = mov;
+        float target = transform.eulerAngles.y;
+        if (transform.eulerAngles.y > 45) target -= 360;
+        lastY = Mathf.Clamp(target, -45, 45);
+        nextY = dir == Vector3.up ? 45 : -45;
+        moveDir = dir;
         rotationProgress = 0;
     }
 
@@ -71,10 +77,11 @@ public class Boat : MonoBehaviour
         if (!GameStateManager.Instance.TimePaused)
         {
             // Move forward at all times
-            transform.localPosition += transform.forward * currentSpeed * Time.deltaTime;
-            if (transform.eulerAngles.x != moveDir.x)
+            transform.position += transform.forward * currentSpeed * Time.deltaTime;
+            if (nextY != transform.localEulerAngles.y)
             {
-                transform.localRotation = Quaternion.Slerp(Quaternion.Euler(lastMoveDir), Quaternion.Euler(moveDir), rotationProgress);
+                transform.eulerAngles = new Vector3(0, Mathf.Clamp(Mathf.LerpAngle(lastY, nextY, rotationProgress), -45, 45), 0);
+                //transform.rotation = Quaternion.Slerp(Quaternion.Euler(lastMoveDir), Quaternion.Euler(moveDir), rotationProgress);
                 rotationProgress += Time.deltaTime * rotationSpeed;
             }
         }

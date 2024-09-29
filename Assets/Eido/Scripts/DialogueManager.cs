@@ -161,7 +161,7 @@ public class DialogueManager : MonoBehaviour
         currentTarget = target;
         correct = false;
         inputField.text = string.Empty;
-        blanks.text = Enumerable.Repeat("_", prompt.Length).ToString();
+        blanks.text = string.Concat(Enumerable.Repeat("_", prompt.Length));
         promptText.text = prompt;
         guessingContainer.SetActive(true);
         inputField.Select();
@@ -225,7 +225,8 @@ public class DialogueManager : MonoBehaviour
                     else
                     {
                         ghostHost.sprite = EmoteImageList[(int)log.nodeData.wrongEmote];
-                        newNode.text = log.nodeData.correctAnswerResponse;
+                        newNode.text = log.nodeData.wrongAnswerResponse;
+                        newNode.baseEmote = log.nodeData.wrongEmote;
                     }
 
 

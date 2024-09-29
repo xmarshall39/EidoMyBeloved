@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                BoatManager.Instance.SetMovementDirection(colorTarget, shapeTarget, Vector3.left * 75);
+                BoatManager.Instance.SetMovementDirection(colorTarget, shapeTarget, Vector3.up);
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
-                BoatManager.Instance.SetMovementDirection(colorTarget, shapeTarget, Vector3.right * 75);
+                BoatManager.Instance.SetMovementDirection(colorTarget, shapeTarget, Vector3.down);
             }
             if (Input.GetKeyDown(KeyCode.D))
             {

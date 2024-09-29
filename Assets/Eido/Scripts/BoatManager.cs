@@ -99,7 +99,8 @@ public class BoatManager : MonoBehaviour
 
     public void SpawnBoat(BoatSpawnEntry entry)
     {
-        var boatObj = GameObject.Instantiate(boatPrefabs[entry.BoatPrefab], boatStartPoints[entry.StartLocation]);
+        var boatObj = GameObject.Instantiate(boatPrefabs[entry.BoatPrefab], spawnAcnchor);
+        boatObj.transform.position = boatStartPoints[entry.StartLocation].position;
         if (boatObj.TryGetComponent(out Boat boatComp))
         {
             boatComp.InitBoat(entry); //I need a light in here...
