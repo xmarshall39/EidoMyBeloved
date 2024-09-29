@@ -10,6 +10,8 @@ public class BoatUIController : MonoBehaviour
     public Button colorLeft, colorRight, shapeLeft, shapeRight;
     public Image shapeTargetImage;
     public TextMeshProUGUI colorText;
+    [Space]
+    public TextMeshProUGUI scoreText, timeText;
 
     [Header("Settings")]
     public Color[] colors; //These may not actually be red, blue, green
@@ -30,9 +32,10 @@ public class BoatUIController : MonoBehaviour
 
         if (CurrentShape == BoatShape.None)
         {
-            shapeLeft.enabled = false;
+            shapeLeft.gameObject.SetActive(false);
         }
 
+        shapeRight.gameObject.SetActive(true);
         playerController.shapeTarget = CurrentShape;
     }
 
@@ -47,9 +50,10 @@ public class BoatUIController : MonoBehaviour
 
         if (CurrentShape == BoatShape.Circle)
         {
-            colorRight.enabled = false;
+            shapeRight.gameObject.SetActive(false);
         }
 
+        shapeLeft.gameObject.SetActive(true);
         playerController.shapeTarget = CurrentShape;
     }
 
@@ -64,9 +68,10 @@ public class BoatUIController : MonoBehaviour
 
         if (CurrentColor == BoatColor.None)
         {
-            colorLeft.enabled = false;
+            colorLeft.gameObject.SetActive(false);
         }
 
+        colorRight.gameObject.SetActive(true);
         playerController.colorTarget = CurrentColor;
 
     }
@@ -82,16 +87,20 @@ public class BoatUIController : MonoBehaviour
 
         if (CurrentColor == BoatColor.Blue)
         {
-            colorRight.enabled = false;
+            colorRight.gameObject.SetActive(false);
         }
 
+        colorLeft.gameObject.SetActive(true);
         playerController.colorTarget = CurrentColor;
     }
 
-    void Start()
+    private void Start()
     {
-        
+        GameStateManager.OnTimerUpdate += GameStateManager_OnTimerUpdate;
     }
 
-   
+    private void GameStateManager_OnTimerUpdate(int time)
+    {
+        timeText.text = $"Time: {time}";
+    }
 }
