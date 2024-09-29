@@ -42,8 +42,6 @@ public class Dialogue
 
         textChunks.Add(buf.ToString());
     }
-
-
 }
 
 public class DialogueNode
@@ -68,6 +66,23 @@ public enum GhostEmote
 
 public class DialogueManager : MonoBehaviour
 {
+    #region Singleton
+    private static DialogueManager _instance;
+    public static DialogueManager Instance { get => _instance; }
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    #endregion
+
+
     public int charCountLimit = 300;
     public string dialoguFileName;
     public LinkedList<Dialogue> DialogueQueue = new LinkedList<Dialogue>();
@@ -129,14 +144,17 @@ public class DialogueManager : MonoBehaviour
                         node.orderCode = 0;
                     }
 
-                    node.baseEmote = Enum.Parse<GhostEmote>(splitLine[3]);
+                    if(splitLine[3] != "Neutral")
+                        node.baseEmote = Enum.Parse<GhostEmote>(splitLine[3]);
                     node.triggerTextEntry = splitLine[4] == "1";
                     node.textEntryInput = splitLine[5];
                     node.textEntryPrompt = splitLine[6];
                     node.correctAnswerResponse = splitLine[7];
-                    node.correctEmote = string.IsNullOrEmpty(splitLine[8]) ? GhostEmote.Wave : Enum.Parse<GhostEmote>(splitLine[8]);
+                    if (splitLine[3] != "Neutral")
+                        node.correctEmote = string.IsNullOrEmpty(splitLine[8]) ? GhostEmote.Wave : Enum.Parse<GhostEmote>(splitLine[8]);
                     node.wrongAnswerResponse = splitLine[9];
-                    node.wrongEmote = string.IsNullOrEmpty(splitLine[10]) ? GhostEmote.Wave : Enum.Parse<GhostEmote>(splitLine[10]);
+                    if (splitLine[3] != "Neutral")
+                        node.wrongEmote = string.IsNullOrEmpty(splitLine[10]) ? GhostEmote.Wave : Enum.Parse<GhostEmote>(splitLine[10]);
 
                     DialogueNodes.Enqueue(node);
                 }

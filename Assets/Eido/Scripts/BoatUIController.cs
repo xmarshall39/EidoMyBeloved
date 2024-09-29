@@ -102,5 +102,6 @@ public class BoatUIController : MonoBehaviour
     private void GameStateManager_OnTimerUpdate(int time)
     {
         timeText.text = $"Time: {time}";
+        scoreText.text = $"Score: {GameStateManager.Instance.Score}";
     }
 }

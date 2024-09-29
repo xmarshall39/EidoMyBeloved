@@ -53,10 +53,9 @@ MonoBehaviour:
   - {fileID: 2837802251154806170}
   boatMesh: {fileID: 5652537277372379110}
   boatColors:
-  - {r: 0.7169812, g: 0.10484158, b: 0.10484158, a: 1}
-  - {r: 0.30275702, g: 0.754717, b: 0.21003917, a: 0}
-  - {r: 0.09518514, g: 0.2651786, b: 0.8773585, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.8470589, g: 0.10588236, b: 0.37647063, a: 1}
+  - {r: 0.11764707, g: 0.53333336, b: 0.8980393, a: 1}
+  - {r: 1, g: 0.7568628, b: 0.027450982, a: 0}
   moveDir: {x: -1, y: 0, z: 0}
   baseSpeed: 0.65
   currentSpeed: 0.65
@@ -124,7 +123,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: -876546973899608171, guid: 81d188b602b7bcb4ea73b2d37b551341, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -407,13 +406,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4308934239955841730}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.24184482, y: 0.66446304, z: 0.66446304, w: -0.24184482}
+  m_LocalRotation: {x: 0, y: 0.70710677, z: 0.70710677, w: 0}
   m_LocalPosition: {x: 0, y: -0.37, z: 0}
   m_LocalScale: {x: 200, y: 200, z: 200}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5705614268628050116}
-  m_LocalEulerAnglesHint: {x: -50, y: -90, z: 270}
+  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 270}
 --- !u!33 &7362859997141618637
 MeshFilter:
   m_ObjectHideFlags: 0

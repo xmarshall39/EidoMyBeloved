@@ -24,6 +24,19 @@ public class Boat : MonoBehaviour
     public BoatShape shape = BoatShape.Circle;
     public BoatColor color = BoatColor.Red;
 
+    public static string[] failures = new string[]
+{
+        "Oh come on! You were doing so well!",
+    "Even Cerberus could save more ships than this. And he's a dog!",
+    "Oop-there goes another one.",
+    "Stop panicking, you're making ME panic!",
+    "We have to get it together, this is becoming a disaster!",
+    "Please friend, let us focus.", "Wow! Youfre getting the hang of this guidance thing pretty quick!",
+    "Aww no, youfve missed that one. Itfs alright, Ifm sure youfll get it next time!",
+    "Look at you go! Itfs been a long time since anyonefs done such a good job.",
+    "Itfs alright, Ifm used to people letting me down",
+    "Noooo you keep missing the ships! What happened, you were doing so well!"
+};
 
     public void InitBoat(BoatSpawnEntry entry)
     {
@@ -38,13 +51,17 @@ public class Boat : MonoBehaviour
         }
 
         //[TODO] Handle Boat Color...
-        MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+        if (entry.BoatColor >= 1)
+        {
+            MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
 
-        // Set a random color in the MaterialPropertyBlock
-        propertyBlock.SetColor("_BaseColor", boatColors[entry.BoatColor]);
+            // Set a random color in the MaterialPropertyBlock
+            propertyBlock.SetColor("_BaseColor", boatColors[entry.BoatColor - 1]);
 
-        // Apply the MaterialPropertyBlock to the GameObject
-        boatMesh.SetPropertyBlock(propertyBlock);
+            // Apply the MaterialPropertyBlock to the GameObject
+            boatMesh.SetPropertyBlock(propertyBlock);
+        }
+
 
         shape = (BoatShape)entry.BoatShape;
         color = (BoatColor)entry.BoatColor;
@@ -76,6 +93,7 @@ public class Boat : MonoBehaviour
         {
             GameStateManager.Instance.Score -= 1;
             Destroy(this.gameObject);
+
         }
     }
 

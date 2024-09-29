@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoatCollisionHandler : MonoBehaviour
 {
+
     public Boat boat;
     private void OnCollisionEnter(Collision collision) //Solid collision or trigger? Decide later.
     {
