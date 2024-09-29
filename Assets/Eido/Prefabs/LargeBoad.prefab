@@ -11,7 +11,37 @@ PrefabInstance:
     - target: {fileID: 681837021802349644, guid: dfa5a979676120947ba13102e78b67c0,
         type: 3}
       propertyPath: m_Name
-      value: BoatBase
+      value: LargeBoad
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953829302992566124, guid: dfa5a979676120947ba13102e78b67c0,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.1765
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289604769881270179, guid: dfa5a979676120947ba13102e78b67c0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289604769881270179, guid: dfa5a979676120947ba13102e78b67c0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289604769881270179, guid: dfa5a979676120947ba13102e78b67c0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289604769881270179, guid: dfa5a979676120947ba13102e78b67c0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289604769881270179, guid: dfa5a979676120947ba13102e78b67c0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 5705614268628050116, guid: dfa5a979676120947ba13102e78b67c0,
         type: 3}
@@ -62,6 +92,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7362859997141618637, guid: dfa5a979676120947ba13102e78b67c0,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -6989282167128152099, guid: fa68ee69666e4ae48a6f26b1c601b78d,
+        type: 3}
+    - target: {fileID: 7374661027276841953, guid: dfa5a979676120947ba13102e78b67c0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

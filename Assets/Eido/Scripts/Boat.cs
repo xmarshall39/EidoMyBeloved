@@ -9,8 +9,10 @@ public class Boat : MonoBehaviour
     private float rotationProgress = 0;
     private float lastY = 0;
     private float nextY = 0;
-
+    public int health = 3;
     public MeshRenderer[] shapeIcons;
+    public MeshRenderer boatMesh;
+    public Color[] boatColors;
     
 
     public Vector3 moveDir = Vector3.left;
@@ -36,6 +38,13 @@ public class Boat : MonoBehaviour
         }
 
         //[TODO] Handle Boat Color...
+        MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+
+        // Set a random color in the MaterialPropertyBlock
+        propertyBlock.SetColor("_BaseColor", boatColors[entry.BoatColor]);
+
+        // Apply the MaterialPropertyBlock to the GameObject
+        boatMesh.SetPropertyBlock(propertyBlock);
 
         shape = (BoatShape)entry.BoatShape;
         color = (BoatColor)entry.BoatColor;
@@ -62,8 +71,12 @@ public class Boat : MonoBehaviour
 
     public void Crash()
     {
-        GameStateManager.Instance.Score -= 1;
-        Destroy(this.gameObject);
+        --health;
+        if (health < 0)
+        {
+            GameStateManager.Instance.Score -= 1;
+            Destroy(this.gameObject);
+        }
     }
 
     public void Score()
