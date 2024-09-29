@@ -6,13 +6,18 @@ using System.Text;
 using System;
 using Febucci.UI.Core;
 using TMPro;
+using System.Linq;
+using UnityEngine.UI;
 
 public class Dialogue
 {
+    public DialogueNode nodeData;
     public List<string> textChunks = new List<string>();
 
-    public Dialogue(string text, int charCountLimit)
+    public Dialogue(DialogueNode node, int charCountLimit)
     {
+        nodeData = node;
+        string text = nodeData.text;
         StringBuilder buf = new StringBuilder(charCountLimit + 50);
         string[] words = text.Split(" ");
         int charCount = 0;
@@ -49,16 +54,16 @@ public class DialogueNode
     public int orderCode = 0;
     public GhostEmote baseEmote;
     public bool triggerTextEntry = false;
-    public string textEntryInput;
-    public string textEntryPrompt;
+    public string textEntryInput = string.Empty;
+    public string textEntryPrompt = string.Empty;
     public string correctAnswerResponse;
     public GhostEmote correctEmote;
-    public string wrongAnswerResponse;
+    public string wrongAnswerResponse = string.Empty;
     public GhostEmote wrongEmote;
 }
 public enum GhostEmote
 {
-Wave, Happy, Sad, Wallowing, Goofy, Baffled, Confused, Crying
+    Wave, Happy, Sad, Wallowing, Goofy, Baffled, Confused, Crying
 }
 
 public class DialogueManager : MonoBehaviour
@@ -68,9 +73,19 @@ public class DialogueManager : MonoBehaviour
     public LinkedList<Dialogue> DialogueQueue = new LinkedList<Dialogue>();
     public Queue<DialogueNode> DialogueNodes = new Queue<DialogueNode>();
 
+    [Tooltip("Order: Wave, Happy, Sad, Wallowing, Goofy, Baffled, Confused, Crying")]
+    public List<Sprite> EmoteImageList;
+    public Image ghostHost;
+
     public TypewriterCore typewriter;
     public TextMeshProUGUI displayText;
 
+    public GameObject guessingContainer;
+    public TMP_InputField inputField;
+
+    public TextMeshProUGUI blanks, promptText;
+
+    [HideInInspector]
     public bool DisplayingText = false;
     
     void Start()
@@ -139,11 +154,33 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(ProcessDialogues());
     }
 
+    bool correct = false;
+    string currentTarget = "";
+    public IEnumerator StartGuessingGame(string prompt, string target)
+    {
+        currentTarget = target;
+        correct = false;
+        inputField.text = string.Empty;
+        blanks.text = Enumerable.Repeat("_", prompt.Length).ToString();
+        promptText.text = prompt;
+        guessingContainer.SetActive(true);
+        inputField.Select();
+        GameStateManager.Instance.TimePaused = true;
+        while (GameStateManager.Instance.TimePaused) yield return null;
+    }
+
+    public void EndGuessingGame()
+    {
+        guessingContainer.SetActive(false);
+        correct = inputField.text.ToLower() == currentTarget.ToLower();
+        GameStateManager.Instance.TimePaused = false;
+    }
+
     private void GameStateManager_OnTimerUpdate(int time)
     {
         if(DialogueNodes.TryPeek(out DialogueNode node) && node.timestamp <= time)
         {
-            DialogueQueue.AddLast(new Dialogue(node.text, charCountLimit));
+            DialogueQueue.AddLast(new Dialogue(node, charCountLimit));
             DialogueNodes.Dequeue();
         }
     }
@@ -153,24 +190,55 @@ public class DialogueManager : MonoBehaviour
     {
         while (true)
         {
-            while (typewriter.isShowingText)
+            while (typewriter.isShowingText || GameStateManager.Instance.TimePaused)
             {
                 yield return null;
             }
-            yield return new WaitForSeconds(.65f);
+            yield return new WaitForSeconds(1.3f);
 
             if (DialogueQueue != null && DialogueQueue.Count > 0)
             {
-                foreach (string line in DialogueQueue.First.Value.textChunks)
+                Dialogue log = DialogueQueue.First.Value;
+                ghostHost.sprite = EmoteImageList[(int)log.nodeData.baseEmote];
+                foreach (string line in log.textChunks)
                 {
                     displayText.text = line;
                     while (typewriter.isShowingText)
                     {
                         yield return null;
                     }
-                    yield return new WaitForSeconds(.65f);
+                    yield return new WaitForSeconds(1.3f);
                 }
-                DialogueQueue.RemoveFirst();
+
+                if (log.nodeData.triggerTextEntry)
+                {
+                    yield return StartGuessingGame(log.nodeData.textEntryPrompt, log.nodeData.textEntryInput);
+                    DialogueQueue.RemoveFirst();
+                    DialogueNode newNode = new DialogueNode();
+
+                    if (correct)
+                    {
+                        ghostHost.sprite = EmoteImageList[(int)log.nodeData.correctEmote];
+                        newNode.text = log.nodeData.correctAnswerResponse;
+
+                    }
+                    else
+                    {
+                        ghostHost.sprite = EmoteImageList[(int)log.nodeData.wrongEmote];
+                        newNode.text = log.nodeData.correctAnswerResponse;
+                    }
+
+
+                    DialogueQueue.AddFirst(new Dialogue(newNode, charCountLimit));
+
+                    yield return new WaitForSeconds(.5f);
+                }
+                else
+                {
+                    DialogueQueue.RemoveFirst();
+
+                }
+
             }
 
 

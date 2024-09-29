@@ -40,6 +40,8 @@ public class GameStateManager : MonoBehaviour
     public int Score { get; set; }
     public int Time { get => _time; private set { _time = value; OnTimerUpdate?.Invoke(value); } }
 
+    public bool TimePaused { get; set; }
+
     public void ChangeGameState(GameState previous, GameState next)
     {
         switch (next)
@@ -83,6 +85,7 @@ public class GameStateManager : MonoBehaviour
     {
         while (true)
         {
+            while (TimePaused) yield return null;
             yield return new WaitForSeconds(1);
             Time += 1;
         }

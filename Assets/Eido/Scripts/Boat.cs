@@ -68,12 +68,15 @@ public class Boat : MonoBehaviour
 
     void Update()
     {
-        // Move forward at all times
-        transform.localPosition += transform.forward * currentSpeed * Time.deltaTime;
-        if (transform.eulerAngles.x != moveDir.x)
+        if (!GameStateManager.Instance.TimePaused)
         {
-            transform.localRotation = Quaternion.Slerp(Quaternion.Euler(lastMoveDir), Quaternion.Euler(moveDir), rotationProgress);
-            rotationProgress += Time.deltaTime * rotationSpeed;
+            // Move forward at all times
+            transform.localPosition += transform.forward * currentSpeed * Time.deltaTime;
+            if (transform.eulerAngles.x != moveDir.x)
+            {
+                transform.localRotation = Quaternion.Slerp(Quaternion.Euler(lastMoveDir), Quaternion.Euler(moveDir), rotationProgress);
+                rotationProgress += Time.deltaTime * rotationSpeed;
+            }
         }
     }
 }
