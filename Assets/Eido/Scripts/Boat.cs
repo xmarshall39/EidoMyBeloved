@@ -92,6 +92,11 @@ public class Boat : MonoBehaviour
         if (health < 0)
         {
             GameStateManager.Instance.Score -= 1;
+            DialogueNode node = new DialogueNode();
+            node.text = failures[Random.Range(0, failures.Length)];
+            Dialogue log = new Dialogue(node, 300);
+
+            DialogueManager.Instance.DialogueQueue.AddFirst(log);
             Destroy(this.gameObject);
 
         }

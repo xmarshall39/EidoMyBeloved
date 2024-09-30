@@ -144,17 +144,37 @@ public class DialogueManager : MonoBehaviour
                         node.orderCode = 0;
                     }
 
-                    if(splitLine[3] != "Neutral")
+                    try
+                    {
                         node.baseEmote = Enum.Parse<GhostEmote>(splitLine[3]);
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.LogWarning($"Format Error on line {i}: {ex}");
+                    }
+
                     node.triggerTextEntry = splitLine[4] == "1";
                     node.textEntryInput = splitLine[5];
                     node.textEntryPrompt = splitLine[6];
                     node.correctAnswerResponse = splitLine[7];
-                    if (splitLine[3] != "Neutral")
+                    try
+                    {
                         node.correctEmote = string.IsNullOrEmpty(splitLine[8]) ? GhostEmote.Wave : Enum.Parse<GhostEmote>(splitLine[8]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogWarning($"Format Error on line {i}: {ex}");
+                    }
+
                     node.wrongAnswerResponse = splitLine[9];
-                    if (splitLine[3] != "Neutral")
+                    try
+                    {
                         node.wrongEmote = string.IsNullOrEmpty(splitLine[10]) ? GhostEmote.Wave : Enum.Parse<GhostEmote>(splitLine[10]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogWarning($"Format Error on line {i}: {ex}");
+                    }
 
                     DialogueNodes.Enqueue(node);
                 }
@@ -259,8 +279,6 @@ public class DialogueManager : MonoBehaviour
                 }
 
             }
-
-
         }
     }
 }

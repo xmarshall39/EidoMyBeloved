@@ -22,7 +22,7 @@ public class BoatCollisionHandler : MonoBehaviour
         {
             boat.Crash();
             Vector3 bounceDir = 10 * (boat.transform.position - other.transform.position);
-            boat.transform.position += bounceDir;
+            //boat.transform.position += bounceDir;
         }
     }
 }
